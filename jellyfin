@@ -1,0 +1,24 @@
+version: "2.1"
+services:
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin:latest
+    container_name: jellyfin
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=america/sao_paulo
+      - JELLYFIN_PublishedServerUrl=http://localhost #optional
+    volumes:
+      - /dados/config:/config
+      - /dados/cache:/cache
+      - /dados/filmes:/filmes
+      - /dados/series:/series
+      - /dados/musicas:/musicas
+      - /dados/media:/media
+      - /home/ubuntu/jellyfin/media2:/media2:ro
+    ports:
+      - 8096:8096
+      - 8920:8920 #optional
+      - 7359:7359/udp #optional
+      - 1900:1900/udp #optional
+    restart: unless-stopped
